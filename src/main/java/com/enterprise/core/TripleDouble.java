@@ -1,5 +1,6 @@
 package com.enterprise.core;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TripleDouble {
@@ -16,8 +17,22 @@ public class TripleDouble {
 		//return 0
 		
 		//this can be done with regular expression too
+
+		Pattern firstPattern = Pattern.compile("(\\d)\\1{2,}");
+		Matcher m = firstPattern.matcher(String.valueOf(first));
 		
-		return 0;
+		while (m.find())
+		{
+		   System.out.println("Duplicate character " + m.group(1));
+		   Pattern secondPattern = Pattern.compile("("+m.group(1)+")\\1");
+		   Matcher secondMatcher = secondPattern.matcher(String.valueOf(second));
+			while(secondMatcher.find()){
+				return 1;
+			}
+		}
+		
+		
+	    return 0;
 
 	}
 
